@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndTinder/AndTinder.iml" filepath="$PROJECT_DIR$/AndTinder/AndTinder.iml" />
       <module fileurl="file://$PROJECT_DIR$/Eatr.iml" filepath="$PROJECT_DIR$/Eatr.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
