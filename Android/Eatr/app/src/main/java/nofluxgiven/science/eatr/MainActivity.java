@@ -193,7 +193,7 @@ public class MainActivity extends Activity {
         return keys;
     }
 
-    static void makeCards (SimpleCardStackAdapter adapter, Resources r){
+    private static void makeCards (SimpleCardStackAdapter adapter, Resources r){
         Set<String> keys = restaurants.keySet();
         Iterator<String> keyIter = keys.iterator();
 
@@ -208,7 +208,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    static Bitmap getImageBitmap (String link){
+    public static Bitmap getImageBitmap (String link){
         Bitmap bmp = null;
         try {
             URL url = new URL(link);
@@ -217,5 +217,9 @@ public class MainActivity extends Activity {
             e.printStackTrace();
         }
         return bmp;
+    }
+
+    public static HashMap <String, Restaurant> getRestaurants (){
+        return restaurants;
     }
 }
