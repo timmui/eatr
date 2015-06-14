@@ -425,7 +425,7 @@ public class CardContainer extends AdapterView<ListAdapter> {
     private class GestureListener extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            Log.d("Fling", "Fling with " + velocityX + ", " + velocityY);
+            Log.d("Fling", "Fling with " + velocityX + ", " + velocityY);//Swipes right have a positive X, left have a negative X
             final View topCard = mTopCard;
             float dx = e2.getX() - e1.getX();
             if (Math.abs(dx) > mTouchSlop &&
@@ -451,7 +451,7 @@ public class CardContainer extends AdapterView<ListAdapter> {
                 if(mTopCard != null)
                     mTopCard.setLayerType(LAYER_TYPE_HARDWARE, null);
 
-                if (cardModel.getOnCardDismissedListener() != null) {
+                if (cardModel.getOnCardDismissedListener() != null) {//determines if the listener is called
                     if ( targetX > 0 ) {
                         cardModel.getOnCardDismissedListener().onLike();
                     } else {

@@ -86,14 +86,15 @@ public class MainActivity extends Activity {
         makeCards(adapter, r);
 
         CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
-        cardModel.setOnClickListener(new CardModel.OnClickListener() {
+
+        cardModel.setOnClickListener(new CardModel.OnClickListener() {//pass in as an array
             @Override
             public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
+                Log.i( "Swipeable Cards", "I am pressing the card");
             }
         });
 
-        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {//entry of MainActivity
             @Override
             public void onLike() {
                 Log.i("Swipeable Cards", "I like the card");

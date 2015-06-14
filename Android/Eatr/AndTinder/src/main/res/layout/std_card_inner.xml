@@ -53,14 +53,12 @@
 
     <ImageView
         android:id="@+id/stars"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image"
-        android:layout_gravity="left"
-        android:layout_toLeftOf="@+id/btn_sep_1"
-        android:padding="0dp"
-        android:lines="1"
         android:src="@drawable/onestar"
+        android:layout_width= "wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider_bottom"
+        android:layout_toLeftOf="@+id/btn_sep_1"
+        android:paddingRight="50dp"
         android:layout_alignBottom="@+id/btn_sep_1" />
 
     <View
@@ -71,7 +69,8 @@
         android:layout_below="@id/image"
         android:layout_marginTop="7dp"
         android:layout_toLeftOf="@+id/image_1"
-        android:background="#ccc"/>
+        android:background="#ccc"
+        android:paddingRight="50dp"/>
 
     <ImageButton
         android:id="@+id/image_1"
@@ -79,10 +78,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="5dp"
-        android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title"
-        android:src="@drawable/yelplogo" />
+        android:paddingRight="50dp"
+        android:layout_toLeftOf="@+id/distance"
+        android:src="@drawable/yelplogo"
+        />
+
 
 
 

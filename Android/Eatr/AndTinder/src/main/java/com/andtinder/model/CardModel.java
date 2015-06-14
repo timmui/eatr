@@ -17,7 +17,6 @@
 
 package com.andtinder.model;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -25,7 +24,7 @@ import android.graphics.drawable.Drawable;
 public class CardModel {
 
 	private String   title;
-	private String   description;
+	private String distance;
 	private Drawable cardImageDrawable;
 	private Drawable cardLikeImageDrawable;
 	private Drawable cardDislikeImageDrawable;
@@ -47,15 +46,15 @@ public class CardModel {
 		this(null, null, (Drawable)null);
 	}
 
-	public CardModel(String title, String description, Drawable cardImage) {
+	public CardModel(String title, String distance, Drawable cardImage) {
 		this.title = title;
-		this.description = description;
+		this.distance = distance;
 		this.cardImageDrawable = cardImage;
 	}
 
-	public CardModel(String title, String description, Bitmap cardImage) {
+	public CardModel(String title, String distance, Bitmap cardImage) {
 		this.title = title;
-		this.description = description;
+		this.distance = distance;
 		this.cardImageDrawable = new BitmapDrawable(null, cardImage);
 	}
 
@@ -67,12 +66,12 @@ public class CardModel {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDistance() {
+		return distance;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDistance(String distance) {
+		this.distance = distance;
 	}
 
 	public Drawable getCardImageDrawable() {
@@ -99,11 +98,11 @@ public class CardModel {
 		this.cardDislikeImageDrawable = cardDislikeImageDrawable;
 	}
 
-    public void setOnCardDismissedListener( OnCardDismissedListener listener ) {
+    public void setOnCardDismissedListener( OnCardDismissedListener listener ) {//sets monocard
         this.mOnCardDismissedListener = listener;
     }
 
-    public OnCardDismissedListener getOnCardDismissedListener() {
+    public OnCardDismissedListener getOnCardDismissedListener() {//entry point of CardContainer
        return this.mOnCardDismissedListener;
     }
 
