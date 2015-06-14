@@ -1,6 +1,9 @@
-package nofluxgiven.science.eatr; /**
+package nofluxgiven.science.eatr;
+/**
  * Created by Tim on 6/13/2015.
  */
+import android.os.StrictMode;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -29,20 +32,16 @@ import com.beust.jcommander.Parameter;
 public class YelpAPI {
 
     private static final String API_HOST = "api.yelp.com";
-    private static final String DEFAULT_TERM = "dinner";
-    private static final String DEFAULT_LOCATION = "San Francisco, CA";
-    private static final int SEARCH_LIMIT = 3;
+    private static final int SEARCH_LIMIT = 20;
     private static final String SEARCH_PATH = "/v2/search";
     private static final String BUSINESS_PATH = "/v2/business";
+    private static final String DEFAULT_TERM = "dinner";
+    private static final String DEFAULT_LOCATION = "Toronto, ON";
 
     /*
      * Update OAuth credentials below from the Yelp Developers API site:
      * http://www.yelp.com/developers/getting_started/api_access
      */
-    private static final String CONSUMER_KEY = Credentials.CONSUMER_KEY;
-    private static final String CONSUMER_SECRET = Credentials.CONSUMER_SECRET;
-    private static final String TOKEN = Credentials.TOKEN;
-    private static final String TOKEN_SECRET = Credentials.TOKEN_SECRET;
 
     OAuthService service;
     Token accessToken;
@@ -56,6 +55,10 @@ public class YelpAPI {
      * @param tokenSecret Token secret
      */
     public YelpAPI(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+
         this.service =
                 new ServiceBuilder().provider(TwoStepOAuth.class).apiKey(consumerKey)
                         .apiSecret(consumerSecret).build();
@@ -125,7 +128,7 @@ public class YelpAPI {
      * @param yelpApi <tt>YelpAPI</tt> service instance
      * @param yelpApiCli <tt>YelpAPICLI</tt> command line arguments
      */
-    private static void queryAPI(YelpAPI yelpApi, YelpAPICLI yelpApiCli) {
+    public static JSONObject queryAPI(YelpAPI yelpApi, YelpAPICLI yelpApiCli) {
         String searchResponseJSON =
                 yelpApi.searchForBusinessesByLocation(yelpApiCli.term, yelpApiCli.location);
 
@@ -136,7 +139,7 @@ public class YelpAPI {
         } catch (ParseException pe) {
             System.out.println("Error: could not parse JSON response:");
             System.out.println(searchResponseJSON);
-            System.exit(1);
+            return null;
         }
 
         JSONArray businesses = (JSONArray) response.get("businesses");
@@ -150,12 +153,14 @@ public class YelpAPI {
         String businessResponseJSON = yelpApi.searchByBusinessId(firstBusinessID.toString());
         System.out.println(String.format("Result for business \"%s\" found:", firstBusinessID));
         System.out.println(businessResponseJSON);
+
+        return response;
     }
 
     /**
      * Command-line interface for the sample Yelp API runner.
      */
-    private static class YelpAPICLI {
+    public static class YelpAPICLI {
         @Parameter(names = {"-q", "--term"}, description = "Search Query Term")
         public String term = DEFAULT_TERM;
 
@@ -163,16 +168,4 @@ public class YelpAPI {
         public String location = DEFAULT_LOCATION;
     }
 
-    /**
-     * Main entry for sample Yelp API requests.
-     * <p>
-     * After entering your OAuth credentials, execute <tt><b>run.sh</b></tt> to run this example.
-     */
-    public static void main(String[] args) {
-        YelpAPICLI yelpApiCli = new YelpAPICLI();
-        new JCommander(yelpApiCli, args);
-
-        YelpAPI yelpApi = new YelpAPI(CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET);
-        queryAPI(yelpApi, yelpApiCli);
-    }
 }
