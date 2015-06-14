@@ -33,45 +33,17 @@ public class MainActivity extends Activity {
 
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
 
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title2", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title3", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title4", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title5", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title6", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title2", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title3", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title4", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title5", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title6", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title2", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title3", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title4", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title5", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title6", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title2", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title3", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title4", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title5", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title6", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title2", "Description goes here", r.getDrawable(R.drawable.picture2)));
-        adapter.add(new CardModel("Title3", "Description goes here", r.getDrawable(R.drawable.picture3)));
-        adapter.add(new CardModel("Title4", "Description goes here", r.getDrawable(R.drawable.picture1)));
-        adapter.add(new CardModel("Title5", "Description goes here", r.getDrawable(R.drawable.picture2)));
 
         CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
-        cardModel.setOnClickListener(new CardModel.OnClickListener() {
+
+        cardModel.setOnClickListener(new CardModel.OnClickListener() {//pass in as an array
             @Override
             public void OnClickListener() {
-                Log.i("Swipeable Cards", "I am pressing the card");
+                Log.i( "Swipeable Cards", "I am pressing the card");
             }
         });
 
-        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {//entry of MainActivity
             @Override
             public void onLike() {
                 Log.i("Swipeable Cards","I like the card");
@@ -87,4 +59,7 @@ public class MainActivity extends Activity {
 
         mCardContainer.setAdapter(adapter);
     }
+
+
+
 }

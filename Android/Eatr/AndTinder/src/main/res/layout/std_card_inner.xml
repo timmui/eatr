@@ -54,7 +54,7 @@
     <ImageView
         android:id="@+id/stars"
         android:src="@drawable/onestar"
-        android:layout_width= "336px"
+        android:layout_width= "wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider_bottom"
         android:layout_toLeftOf="@+id/btn_sep_1"
