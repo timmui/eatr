@@ -91,16 +91,18 @@ public class MainActivity extends Activity {
             }
         });
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-        View view = inflater.inflate(R.layout.std_card_inner, null);
-        ImageView restaurantPicture = (ImageView) view.findViewById(R.id.image);
+        final View view = inflater.inflate(R.layout.std_card_inner, null);
+        Button restaurantPicture = (Button)findViewById(R.id.LOL);
         Log.i("Swipeable Cards", "I hate this app");
-        restaurantPicture.setOnClickListener(new View.OnClickListener() {
+        restaurantPicture.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Swipeable Cards", "I hate this app");
-                Intent intent = new Intent
-                        (MainActivity.this, SecondActivity.class);
-                startActivity(intent);
+                ImageView img= (ImageView) view.findViewById(R.id.stars);
+                img.setImageResource(R.drawable.check);
+//                Intent intent = new Intent
+//                        (MainActivity.this, SecondActivity.class);
+//                startActivity(intent);
             }
         });
 
