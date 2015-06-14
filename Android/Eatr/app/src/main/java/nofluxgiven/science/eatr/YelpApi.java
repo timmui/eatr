@@ -37,6 +37,7 @@ public class YelpAPI {
     private static final String BUSINESS_PATH = "/v2/business";
     private static final String DEFAULT_TERM = "dinner";
     private static final String DEFAULT_LOCATION = "Toronto, ON";
+    private static String postalCode = "M5V0G6";
 
     /*
      * Update OAuth credentials below from the Yelp Developers API site:
@@ -54,7 +55,7 @@ public class YelpAPI {
      * @param token Token
      * @param tokenSecret Token secret
      */
-    public YelpAPI(String consumerKey, String consumerSecret, String token, String tokenSecret) {
+    public YelpAPI(String consumerKey, String consumerSecret, String token, String tokenSecret, String postalCode) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
@@ -63,6 +64,8 @@ public class YelpAPI {
                 new ServiceBuilder().provider(TwoStepOAuth.class).apiKey(consumerKey)
                         .apiSecret(consumerSecret).build();
         this.accessToken = new Token(token, tokenSecret);
+
+        this.postalCode = postalCode;
     }
 
     /**

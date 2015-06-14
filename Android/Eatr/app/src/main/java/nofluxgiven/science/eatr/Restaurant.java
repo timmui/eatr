@@ -9,6 +9,8 @@ import java.util.Dictionary;
  * Created by Tim on 6/14/2015.
  */
 public class Restaurant {
+    private static final double RATING_WEIGHT = 0.7;
+    private static final double DIST_WEIGHT = 0.3;
     private static String name = null;
     private static String imageUrl = null;
     private static String mobileUrl = null;
@@ -22,22 +24,35 @@ public class Restaurant {
     private static double longitude = 0;
     private static boolean isClosed = true;
     private static String id  = null;
-    private static int rank = 0;
+    private static double rank = 0;
 
-    public Restaurant (){
-
+    public Restaurant(String id, double rating, String imageUrl, Boolean isClosed, String mobileUrl, String name, String phone, String ratingImageUrl, String snippetText, String address, double lat, double lon) {
+        setId(id);
+        setRating(rating);
+        setImageUrl(imageUrl);
+        setIsClosed(isClosed);
+        setMobileUrl(mobileUrl);
+        setName(name);
+        setPhone(phone);
+        setRatingImageUrl(ratingImageUrl);
+        setSnippetText(snippetText);
+        setAddress(address);
+        setLatitude(lat);
+        setLongitude(lon);
+        setDistance(latitude,longitude);
+        setRank();
     }
 
     public static String getAddress() {
         return address;
     }
 
-    public static int getRank() {
+    public static double getRank() {
         return rank;
     }
 
-    public static void setRank(int rank) {
-        Restaurant.rank = rank;
+    public static void setRank() {
+        Restaurant.rank = rating*2*RATING_WEIGHT + distance*DIST_WEIGHT;
     }
 
     public static void setAddress(String address) {
