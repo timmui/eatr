@@ -11,12 +11,23 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.andtinder.model.CardModel;
 import com.andtinder.view.CardContainer;
@@ -59,21 +70,23 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mCardContainer = (CardContainer) findViewById(R.id.layoutview);
-
         Resources r = getResources();
 
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
-        Log.d("yelp", latitude+" "+longitude);
+        if (location != null) {
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            Log.d("yelp", latitude + " " + longitude);
 
-        try {
-            Geocoder geocoder = new Geocoder(getApplicationContext());
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            postalCode = addresses.get(0).getPostalCode();
-        } catch (IOException e){
-            e.printStackTrace();
+
+            try {
+                Geocoder geocoder = new Geocoder(getApplicationContext());
+                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                postalCode = addresses.get(0).getPostalCode();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         restaurantIds =  makeRestaurants();
@@ -94,7 +107,8 @@ public class MainActivity extends Activity {
             }
         });
 
-        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {//entry of MainActivity
+        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+
             @Override
             public void onLike() {
                 Log.i("Swipeable Cards", "I like the card");
@@ -103,12 +117,30 @@ public class MainActivity extends Activity {
             @Override
             public void onDislike() {
                 Log.i("Swipeable Cards", "I dislike the card");
+
+            }
+        });
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        final View view = inflater.inflate(R.layout.std_card_inner, null);
+        Button restaurantPicture = (Button)findViewById(R.id.LOL);
+        Log.i("Swipeable Cards", "I hate this app");
+        restaurantPicture.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Swipeable Cards", "I hate this app");
+                ImageView img= (ImageView) view.findViewById(R.id.stars);
+                img.setImageResource(R.drawable.check);
+//                Intent intent = new Intent
+//                        (MainActivity.this, SecondActivity.class);
+//                startActivity(intent);
+
             }
         });
 
         adapter.add(cardModel);
 
         mCardContainer.setAdapter(adapter);
+
     }
 
     public JSONObject queryYelp (){
