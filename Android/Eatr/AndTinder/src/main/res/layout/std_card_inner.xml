@@ -27,14 +27,15 @@
         android:background="@color/card_outline"
         />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider_title"
         android:layout_alignWithParentIfMissing="true"
         android:scaleType="centerCrop"
-        tools:src="@drawable/picture1"/>
+        tools:src="@drawable/picture1"
+        android:clickable="true" />
 
     <View
         android:id="@+id/divider_bottom"
