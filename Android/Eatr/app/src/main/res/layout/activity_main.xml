@@ -6,6 +6,12 @@
     android:orientation="vertical">
 
 
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/eatrlogo"/>
 
     <com.andtinder.view.CardContainer
         android:id="@+id/layoutview"
