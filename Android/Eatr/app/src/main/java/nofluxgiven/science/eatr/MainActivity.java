@@ -63,6 +63,7 @@ public class MainActivity extends Activity {
     private static double longitude = 0;
     private static String postalCode = "M5V0G6";
     private static String[] restaurantIds;
+    private int counter=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,9 @@ public class MainActivity extends Activity {
         Log.d("yelp", restaurantIds[0]);
         Log.d("yelp", restaurants.get(restaurantIds[0]).getId());
         Log.d("yelp", restaurants.get(restaurantIds[0]).getName());
-        Restaurant[] sortedrestaurant = sortResturants(restaurants);
+        final Restaurant[] sortedrestaurant = sortResturants(restaurants);
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
-        CardModel [] arrayofCards = new CardModel[sortedrestaurant.length];
+        final CardModel [] arrayofCards = new CardModel[sortedrestaurant.length];
         makeCards(adapter, r);
         for(int i=0; i<sortedrestaurant.length;i++) {
             String distance = sortedrestaurant[i].getDistance()/1000 + "m";
@@ -107,12 +108,14 @@ public class MainActivity extends Activity {
                 @Override
                 public void OnClickListener() {
                     Log.i( "Swipeable Cards", "I am pressing the card");
+                    counter++;
                 }});
             arrayofCards[i].setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
 
                     @Override
                     public void onLike() {
                         Log.i("Swipeable Cards", "I like the card");
+
                     }
 
                     @Override
@@ -133,12 +136,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.i("Swipeable Cards", "I hate this app");
-                ImageView img = (ImageView) view.findViewById(R.id.stars);
-                img.setImageResource(R.drawable.check);
-//                Intent intent = new Intent
-//                        (MainActivity.this, SecondActivity.class);
-//                startActivity(intent);
-
+                SecondActivity yolo = new SecondActivity();
+                Intent intent = new Intent
+                        (MainActivity.this, SecondActivity.class);
+                startActivity(intent);
+                yolo.giveRestaurantInfo(sortedrestaurant[counter]);
+                Log.d("debug", sortedrestaurant[counter].getId());
+                Log.d("debug", sortedrestaurant[counter].getImageUrl());
             }
         });
         for(CardModel s: arrayofCards) {
@@ -146,6 +150,7 @@ public class MainActivity extends Activity {
         }
 
         mCardContainer.setAdapter(adapter);
+
 
     }
 
@@ -186,7 +191,7 @@ public class MainActivity extends Activity {
 
                 Log.d("yelp", "\n----------------------------------------------\n"+id+"\n"+rating+"\n"+imageUrl+"\n"+isClosed+"\n"+mobileUrl+"\n"+name+"\n"+phone+"\n"+ratingImageUrl+"\n"+snippetText+"\n"+address+"\n"+lat+"\n"+lon+"\n----------------------------------------------\n");
 
-                restaurants.put(id , new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon));
+                restaurants.put(id, new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon));
                 restaurants.toString();
             }
         } catch (JSONException e){
