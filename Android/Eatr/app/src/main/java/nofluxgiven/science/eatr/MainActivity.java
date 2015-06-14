@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Set;
 
 
+
 public class MainActivity extends Activity {
 
     /**
@@ -93,33 +94,37 @@ public class MainActivity extends Activity {
         Log.d("yelp", restaurantIds[0]);
         Log.d("yelp", restaurants.get(restaurantIds[0]).getId());
         Log.d("yelp", restaurants.get(restaurantIds[0]).getName());
-
+        Restaurant[] sortedrestaurant = sortResturants(restaurants);
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
-
+        CardModel [] arrayofCards = new CardModel[sortedrestaurant.length];
         makeCards(adapter, r);
+        for(int i=0; i<sortedrestaurant.length;i++) {
+            String distance = sortedrestaurant[i].getDistance()/1000 + "m";
+            distance = String.format("{0:F1}",distance);
+            arrayofCards[i] = new CardModel(sortedrestaurant[i].getName(), distance, r.getDrawable(R.drawable.picture1));
+            arrayofCards[i].setOnClickListener(new CardModel.OnClickListener()
+            {//pass in as an array
+                @Override
+                public void OnClickListener() {
+                    Log.i( "Swipeable Cards", "I am pressing the card");
+                }});
+            arrayofCards[i].setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
 
-        CardModel cardModel = new CardModel("Title1", "Description goes here", r.getDrawable(R.drawable.picture1));
+                    @Override
+                    public void onLike() {
+                        Log.i("Swipeable Cards", "I like the card");
+                    }
 
-        cardModel.setOnClickListener(new CardModel.OnClickListener() {//pass in as an array
-            @Override
-            public void OnClickListener() {
-                Log.i( "Swipeable Cards", "I am pressing the card");
-            }
-        });
+                    @Override
+                    public void onDislike() {
+                        Log.i("Swipeable Cards", "I dislike the card");
 
-        cardModel.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+                    }
+                }
+            );
+        }
 
-            @Override
-            public void onLike() {
-                Log.i("Swipeable Cards", "I like the card");
-            }
 
-            @Override
-            public void onDislike() {
-                Log.i("Swipeable Cards", "I dislike the card");
-
-            }
-        });
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
         final View view = inflater.inflate(R.layout.std_card_inner, null);
         Button restaurantPicture = (Button)findViewById(R.id.LOL);
@@ -128,7 +133,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.i("Swipeable Cards", "I hate this app");
-                ImageView img= (ImageView) view.findViewById(R.id.stars);
+                ImageView img = (ImageView) view.findViewById(R.id.stars);
                 img.setImageResource(R.drawable.check);
 //                Intent intent = new Intent
 //                        (MainActivity.this, SecondActivity.class);
@@ -136,8 +141,9 @@ public class MainActivity extends Activity {
 
             }
         });
-
-        adapter.add(cardModel);
+        for(CardModel s: arrayofCards) {
+            adapter.add(s);
+        }
 
         mCardContainer.setAdapter(adapter);
 
@@ -222,4 +228,65 @@ public class MainActivity extends Activity {
     public static HashMap <String, Restaurant> getRestaurants (){
         return restaurants;
     }
-}
+    public static Restaurant[] sortResturants(HashMap restaurants)
+    {
+
+        int length;
+        length = restaurants.size();
+        String[] keys = (String []) restaurants.keySet().toArray(new String[length]);
+        Restaurant[] sortedArray = new Restaurant[length];
+        for(int i=0; i<length; i++)
+        {
+            sortedArray[i] = (Restaurant) restaurants.get(keys[i]);
+        }
+
+        if (sortedArray == null) {
+            return null;
+        }
+
+        quickSort(0, length - 1,sortedArray);
+        return sortedArray;
+    }
+
+    public static void quickSort(int lowerIndex, int higherIndex, Restaurant[] unsorted) {
+
+            int i = lowerIndex;
+            int j = higherIndex;
+            // calculate pivot number, I am taking pivot as middle index number
+            double pivot = unsorted[lowerIndex+(higherIndex-lowerIndex)/2].getRank();
+            // Divide into two arrays
+            while (i <= j) {
+                /**
+                 * In each iteration, we will identify a number from left side which
+                 * is greater then the pivot value, and also we will identify a number
+                 * from right side which is less then the pivot value. Once the search
+                 * is done, then we exchange both numbers.
+                 */
+                while (unsorted[i].getRank() > pivot) {
+                    i++;
+                }
+                while (unsorted[j].getRank() < pivot) {
+                    j--;
+                }
+                if (i <= j) {
+                    exchangeNumbers(i, j,unsorted);
+                    //move index to next position on both sides
+                    i++;
+                    j--;
+                }
+            }
+            // call quickSort() method recursively
+            if (lowerIndex < j)
+                quickSort(lowerIndex, j,unsorted);
+            if (i < higherIndex)
+                quickSort(i, higherIndex,unsorted);
+        }
+
+        private static void exchangeNumbers(int i, int j, Restaurant[] unsorted) {
+            Restaurant temp = unsorted[i];
+            unsorted[i] = unsorted[j];
+            unsorted[j] = temp;
+        }
+
+
+    }
