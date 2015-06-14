@@ -180,7 +180,8 @@ public class MainActivity extends Activity {
 
                 Log.d("yelp", "\n----------------------------------------------\n"+id+"\n"+rating+"\n"+imageUrl+"\n"+isClosed+"\n"+mobileUrl+"\n"+name+"\n"+phone+"\n"+ratingImageUrl+"\n"+snippetText+"\n"+address+"\n"+lat+"\n"+lon+"\n----------------------------------------------\n");
 
-                restaurants.put(id, new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon));
+                restaurants.put(id , new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon));
+                restaurants.toString();
             }
         } catch (JSONException e){
             e.printStackTrace();
@@ -197,15 +198,18 @@ public class MainActivity extends Activity {
         Set<String> keys = restaurants.keySet();
         Iterator<String> keyIter = keys.iterator();
 
-        while (keyIter.hasNext()) {
+        while (keyIter.hasNext()) {//different ways of ierating through
             String id = keyIter.next();
             Restaurant rest = restaurants.get(id);
+            String fullRest = rest.toString();
+            Log.d("yelp", fullRest);
             Bitmap bmp = getImageBitmap(rest.getImageUrl());
             String name = rest.getName();
+            String name2 = rest.getId();
             Double rating = rest.getRating();
             adapter.add(new CardModel(name, rating + "", new BitmapDrawable(r, bmp)));
-            Log.d("yelp", id + " " +name);
-        }
+            Log.d("yelp", id + " " +name + " " + rating + " " + name2);
+    }
     }
 
     public static Bitmap getImageBitmap (String link){

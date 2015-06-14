@@ -9,22 +9,22 @@ import java.util.Dictionary;
  * Created by Tim on 6/14/2015.
  */
 public class Restaurant {
-    private static final double RATING_WEIGHT = 0.7;
-    private static final double DIST_WEIGHT = 0.3;
-    private static String name = null;
-    private static String imageUrl = null;
-    private static String mobileUrl = null;
-    private static double rating = 0;
-    private static String phone = null;
-    private static double distance = -1;
-    private static String ratingImageUrl = null;
-    private static String snippetText = null;
-    private static String address = null;
-    private static double latitude = 0;
-    private static double longitude = 0;
-    private static boolean isClosed = true;
-    private static String id  = null;
-    private static double rank = 0;
+    private   final double RATING_WEIGHT = 0.7;
+    private   final double DIST_WEIGHT = 0.3;
+    private   String name = null;
+    private   String imageUrl = null;
+    private   String mobileUrl = null;
+    private   double rating = 0;
+    private   String phone = null;
+    private   double distance = -1;
+    private   String ratingImageUrl = null;
+    private   String snippetText = null;
+    private   String address = null;
+    private   double latitude = 0;
+    private   double longitude = 0;
+    private   boolean isClosed = true;
+    private   String id  = null;
+    private   double rank = 0;
 
     public Restaurant(String id, double rating, String imageUrl, Boolean isClosed, String mobileUrl, String name, String phone, String ratingImageUrl, String snippetText, String address, double lat, double lon) {
         setId(id);
@@ -43,118 +43,118 @@ public class Restaurant {
         setRank();
     }
 
-    public static String getAddress() {
+    public   String getAddress() {
         return address;
     }
 
-    public static double getRank() {
+    public   double getRank() {
         return rank;
     }
 
-    public static void setRank() {
-        Restaurant.rank = rating*2*RATING_WEIGHT + distance*DIST_WEIGHT;
+    public   void setRank() {
+        rank = rating*2*RATING_WEIGHT + distance*DIST_WEIGHT;
     }
 
-    public static void setAddress(String address) {
-        Restaurant.address = address;
+    public   void setAddress(String address) {
+        this.address = address;
     }
 
-    public static double getLatitude() {
+    public   double getLatitude() {
         return latitude;
     }
 
-    public static void setLatitude(double latitude) {
-        Restaurant.latitude = latitude;
+    public   void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 
-    public static double getLongitude() {
+    public   double getLongitude() {
         return longitude;
     }
 
-    public static void setLongitude(double longitude) {
-        Restaurant.longitude = longitude;
+    public   void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public static String getName() {
+    public   String getName() {
         return name;
     }
 
-    public static double getRating() {
+    public   double getRating() {
         return rating;
     }
 
-    public static void setRating(double rating) {
-        Restaurant.rating = rating;
+    public   void setRating(double rating) {
+        this.rating = rating;
     }
 
-    public static void setName(String name) {
-        Restaurant.name = name;
+    public   void setName(String name) {
+        this.name = name;
     }
 
-    public static String getImageUrl() {
+    public   String getImageUrl() {
         return imageUrl;
     }
 
-    public static void setImageUrl(String imageUrl) {
-        Restaurant.imageUrl = imageUrl;
+    public   void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public static String getMobileUrl() {
+    public   String getMobileUrl() {
         return mobileUrl;
     }
 
-    public static void setMobileUrl(String mobileUrl) {
-        Restaurant.mobileUrl = mobileUrl;
+    public   void setMobileUrl(String mobileUrl) {
+        this.mobileUrl = mobileUrl;
     }
 
-    public static String getPhone() {
+    public   String getPhone() {
         return phone;
     }
 
-    public static void setPhone(String phone) {
-        Restaurant.phone = phone;
+    public   void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public static double getDistance() {
+    public   double getDistance() {
         return distance;
     }
 
-    public static void setDistance(double lat, double lon) {
+    public   void setDistance(double lat, double lon) {
         float[] result = new float[1];
         Location.distanceBetween(lat,lon,latitude,longitude,result);
-        Restaurant.distance = (double) result[0];
+        distance = (double) result[0];
     }
 
-    public static String getRatingImageUrl() {
+    public   String getRatingImageUrl() {
         return ratingImageUrl;
     }
 
-    public static void setRatingImageUrl(String ratingImageUrl) {
-        Restaurant.ratingImageUrl = ratingImageUrl;
+    public   void setRatingImageUrl(String ratingImageUrl) {
+        this.ratingImageUrl = ratingImageUrl;
     }
 
-    public static String getSnippetText() {
+    public   String getSnippetText() {
         return snippetText;
     }
 
-    public static void setSnippetText(String snippetText) {
-        Restaurant.snippetText = snippetText;
+    public   void setSnippetText(String snippetText) {
+        this.snippetText = snippetText;
     }
 
-    public static boolean isClosed() {
+    public   boolean isClosed() {
         return isClosed;
     }
 
-    public static void setIsClosed(boolean isClosed) {
-        Restaurant.isClosed = isClosed;
+    public   void setIsClosed(boolean isClosed) {
+        this.isClosed = isClosed;
     }
 
-    public static String getId() {
+    public   String getId() {
         return id;
     }
 
-    public static void setId(String id) {
-        Restaurant.id = id;
+    public   void setId(String id) {
+        this.id = id;
     }
 
 }
