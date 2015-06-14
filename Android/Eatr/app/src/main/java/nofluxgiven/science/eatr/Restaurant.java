@@ -26,7 +26,7 @@ public class Restaurant {
     private   String id  = null;
     private   double rank = 0;
 
-    public Restaurant(String id, double rating, String imageUrl, Boolean isClosed, String mobileUrl, String name, String phone, String ratingImageUrl, String snippetText, String address, double lat, double lon) {
+    public Restaurant(String id, double rating, String imageUrl, Boolean isClosed, String mobileUrl, String name, String phone, String ratingImageUrl, String snippetText, String address, double lat, double lon, double userLat, double userLong) {
         setId(id);
         setRating(rating);
         setImageUrl(imageUrl);
@@ -39,7 +39,7 @@ public class Restaurant {
         setAddress(address);
         setLatitude(lat);
         setLongitude(lon);
-        setDistance(latitude,longitude);
+        setDistance(userLat,userLong);
         setRank();
     }
 

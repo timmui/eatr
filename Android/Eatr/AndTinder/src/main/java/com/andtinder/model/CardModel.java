@@ -27,6 +27,7 @@ public class CardModel {
 	private String distance;
 	private Drawable cardImageDrawable;
 	private Drawable cardLikeImageDrawable;
+	private Drawable rating;
 	private Drawable cardDislikeImageDrawable;
 
     private OnCardDismissedListener mOnCardDismissedListener = null;
@@ -43,19 +44,21 @@ public class CardModel {
     }
 
 	public CardModel() {
-		this(null, null, (Drawable)null);
+		this(null, null, (Drawable)null,(Drawable)null);
 	}
 
-	public CardModel(String title, String distance, Drawable cardImage) {
+	public CardModel(String title, String distance, Drawable rating, Drawable cardImage) {
 		this.title = title;
 		this.distance = distance;
 		this.cardImageDrawable = cardImage;
+		this.rating = rating;
 	}
 
-	public CardModel(String title, String distance, Bitmap cardImage) {
+	public CardModel(String title, String distance, Bitmap rating, Bitmap cardImage) {
 		this.title = title;
 		this.distance = distance;
 		this.cardImageDrawable = new BitmapDrawable(null, cardImage);
+		this.rating = new BitmapDrawable(null, rating);
 	}
 
 	public String getTitle() {
@@ -80,6 +83,14 @@ public class CardModel {
 
 	public void setCardImageDrawable(Drawable cardImageDrawable) {
 		this.cardImageDrawable = cardImageDrawable;
+	}
+
+	public void setRating(Drawable rating) {
+		this.rating = rating;
+	}
+
+	public Drawable getRating(){
+		return rating;
 	}
 
 	public Drawable getCardLikeImageDrawable() {

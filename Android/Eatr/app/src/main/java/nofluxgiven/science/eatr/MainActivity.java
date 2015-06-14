@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,10 +60,12 @@ public class MainActivity extends Activity {
     private static final String TOKEN = Credentials.TOKEN;
     private static final String TOKEN_SECRET = Credentials.TOKEN_SECRET;
     private static HashMap <String, Restaurant> restaurants = new HashMap();
-    private static double latitude = 0;
-    private static double longitude = 0;
+    private static double latitude = 43.6475331;
+    private static double longitude = -79.4240836;
     private static String postalCode = "M5V0G6";
     private static String[] restaurantIds;
+    private static String resturantAddress = null;
+    private static Uri geoLocation = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,28 +101,39 @@ public class MainActivity extends Activity {
         SimpleCardStackAdapter adapter = new SimpleCardStackAdapter(this);
         CardModel [] arrayofCards = new CardModel[sortedrestaurant.length];
         makeCards(adapter, r);
+
+        resturantAddress = restaurants.get(restaurantIds[0]).getAddress();
+        resturantAddress = ("geo:0,0?q="+resturantAddress.replace(" ","+"));
+        geoLocation = Uri.parse(resturantAddress);
+
         for(int i=0; i<sortedrestaurant.length;i++) {
-            String distance = sortedrestaurant[i].getDistance()/1000 + "m";
-            distance = String.format("{0:F1}",distance);
-            arrayofCards[i] = new CardModel(sortedrestaurant[i].getName(), distance, r.getDrawable(R.drawable.picture1));
-            arrayofCards[i].setOnClickListener(new CardModel.OnClickListener()
-            {//pass in as an array
+            String distance = String.format("%.2f km", sortedrestaurant[i].getDistance()/1000.0);
+            //distance = String.format("{0:F1}",distance);
+            Bitmap img = getImageBitmap(sortedrestaurant[i].getImageUrl());
+            Bitmap stars = getImageBitmap(sortedrestaurant[i].getRatingImageUrl());
+            arrayofCards[i] = new CardModel(sortedrestaurant[i].getName(), distance, new BitmapDrawable(r, stars), new BitmapDrawable(r, img));
+            arrayofCards[i].setOnClickListener(new CardModel.OnClickListener() {//pass in as an array
                 @Override
                 public void OnClickListener() {
-                    Log.i( "Swipeable Cards", "I am pressing the card");
+                    Log.i("Swipeable Cards", "I am pressing the card");
                 }});
             arrayofCards[i].setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
 
-                    @Override
-                    public void onLike() {
-                        Log.i("Swipeable Cards", "I like the card");
-                    }
+                                                           @Override
+                                                           public void onLike() {
+                                                               Log.i("Swipeable Cards", "I like the card");
+                                                               Intent intent = new Intent(Intent.ACTION_VIEW);
+                                                               intent.setData(geoLocation);
+                                                               if (intent.resolveActivity(getPackageManager()) != null) {
+                                                                   startActivity(intent);
+                                                               }
+                                                           }
 
-                    @Override
-                    public void onDislike() {
-                        Log.i("Swipeable Cards", "I dislike the card");
+                                                           @Override
+                                                           public void onDislike() {
+                                                               Log.i("Swipeable Cards", "I dislike the card");
 
-                    }
+                                                           }
                 }
             );
         }
@@ -178,7 +192,7 @@ public class MainActivity extends Activity {
                 String mobileUrl = JSONrestaurant.getString("mobile_url");
                 String name = JSONrestaurant.getString("name");
                 String phone = JSONrestaurant.getString("phone");
-                String ratingImageUrl = JSONrestaurant.getString("rating_img_url");
+                String ratingImageUrl = JSONrestaurant.getString("rating_img_url_large");
                 String snippetText = JSONrestaurant.getString("snippet_text");
                 String address = JSONrestaurant.getJSONObject("location").getJSONArray("display_address").toString().replaceAll("([|]|\")", "");
                 double lat = JSONrestaurant.getJSONObject("location").getJSONObject("coordinate").getDouble("latitude");
@@ -186,7 +200,7 @@ public class MainActivity extends Activity {
 
                 Log.d("yelp", "\n----------------------------------------------\n"+id+"\n"+rating+"\n"+imageUrl+"\n"+isClosed+"\n"+mobileUrl+"\n"+name+"\n"+phone+"\n"+ratingImageUrl+"\n"+snippetText+"\n"+address+"\n"+lat+"\n"+lon+"\n----------------------------------------------\n");
 
-                restaurants.put(id , new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon));
+                restaurants.put(id , new Restaurant(id, rating, imageUrl, isClosed, mobileUrl, name, phone, ratingImageUrl, snippetText, address, lat, lon,latitude,longitude));
                 restaurants.toString();
             }
         } catch (JSONException e){
@@ -210,10 +224,11 @@ public class MainActivity extends Activity {
             String fullRest = rest.toString();
             Log.d("yelp", fullRest);
             Bitmap bmp = getImageBitmap(rest.getImageUrl());
+            Bitmap stars = getImageBitmap(rest.getRatingImageUrl());
             String name = rest.getName();
             String name2 = rest.getId();
             Double rating = rest.getRating();
-            adapter.add(new CardModel(name, rating + "", new BitmapDrawable(r, bmp)));
+            adapter.add(new CardModel(name, rating + "",new BitmapDrawable(r,stars), new BitmapDrawable(r, bmp)));
             Log.d("yelp", id + " " +name + " " + rating + " " + name2);
     }
     }
