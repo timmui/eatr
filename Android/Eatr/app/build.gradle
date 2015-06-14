@@ -23,4 +23,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:19.+'
     compile project(':AndTinder')
+    compile project(':jcommander-1.35')
+    compile project(':json_simple-1.1')
+    compile project(':scribe-1.3.5')
 }
