@@ -73,37 +73,18 @@
         android:layout_toLeftOf="@+id/image_1"
         android:background="#ccc"/>
 
-    <TextView
+    <ImageButton
         android:id="@+id/image_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
-        android:layout_toLeftOf="@+id/btn_sep_2"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="10dp"
-        android:text=""
+        android:padding="5dp"
         android:layout_toRightOf="@+id/title"
-        android:layout_toEndOf="@+id/title" />
+        android:layout_toEndOf="@+id/title"
+        android:src="@drawable/yelplogo" />
 
-    <View
-        android:id="@+id/btn_sep_2"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_alignBottom="@id/image_1"
-        android:layout_below="@id/image"
-        android:layout_marginTop="7dp"
-        android:layout_toLeftOf="@+id/image_2"
-        android:background="#ccc"/>
 
-    <ImageButton
-        android:id="@+id/image_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/image"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="10dp"
-        android:src="@drawable/yelplogo"/>
 
     <TextView
         android:id="@+id/distance"
