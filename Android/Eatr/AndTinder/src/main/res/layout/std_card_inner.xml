@@ -52,21 +52,16 @@
         />
 
     <ImageView
-        android:id="@+id/description"
-        style="@android:style/TextAppearance.Inverse"
+        android:id="@+id/stars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image_2"
-        android:layout_gravity="left"
         android:layout_below="@id/image"
+        android:layout_gravity="left"
         android:layout_toLeftOf="@+id/btn_sep_1"
-        android:gravity="center_vertical"
-        android:fontFamily="sans-serif-condensed"
-        android:ellipsize="end"
-        android:padding="10dp"
+        android:padding="0dp"
         android:lines="1"
-        android:textColor="@android:color/secondary_text_light"
-        android:src="@drawable/onestar"/>
+        android:src="@drawable/onestar"
+        android:layout_alignBottom="@+id/btn_sep_1" />
 
     <View
         android:id="@+id/btn_sep_1"
@@ -78,7 +73,7 @@
         android:layout_toLeftOf="@+id/image_1"
         android:background="#ccc"/>
 
-    <ImageButton
+    <TextView
         android:id="@+id/image_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +81,9 @@
         android:layout_toLeftOf="@+id/btn_sep_2"
         android:background="?android:attr/selectableItemBackground"
         android:padding="10dp"
-        android:src="@drawable/camera"/>
+        android:text=""
+        android:layout_toRightOf="@+id/title"
+        android:layout_toEndOf="@+id/title" />
 
     <View
         android:id="@+id/btn_sep_2"
@@ -106,7 +103,7 @@
         android:layout_below="@id/image"
         android:background="?android:attr/selectableItemBackground"
         android:padding="10dp"
-        android:src="@drawable/miniMapLogo"/>
+        android:src="@drawable/yelplogo"/>
 
     <TextView
         android:id="@+id/distance"

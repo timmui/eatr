@@ -26,7 +26,7 @@ public final class SimpleCardStackAdapter extends CardStackAdapter {
 
 		((ImageView) convertView.findViewById(R.id.image)).setImageDrawable(model.getCardImageDrawable());
 		((TextView) convertView.findViewById(R.id.title)).setText(model.getTitle());
-		((TextView) convertView.findViewById(R.id.description)).setText(model.getDescription());
+
 
 		return convertView;
 	}
