@@ -36,7 +36,7 @@ public class YelpAPI {
     private static final String SEARCH_PATH = "/v2/search";
     private static final String BUSINESS_PATH = "/v2/business";
     private static final String DEFAULT_TERM = "dinner";
-    private static final String DEFAULT_LOCATION = "Toronto, ON";
+
     private static String postalCode = "M5V0G6";
 
     /*
@@ -168,7 +168,7 @@ public class YelpAPI {
         public String term = DEFAULT_TERM;
 
         @Parameter(names = {"-l", "--location"}, description = "Location to be Queried")
-        public String location = DEFAULT_LOCATION;
+        public String location = postalCode;
     }
 
 }
