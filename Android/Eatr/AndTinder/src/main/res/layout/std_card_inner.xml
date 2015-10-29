@@ -31,11 +31,12 @@
         android:id="@+id/image"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_below="@id/divider_title"
         android:layout_alignWithParentIfMissing="true"
         android:scaleType="centerCrop"
         tools:src="@drawable/picture1"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_below="@+id/divider_title"
+        android:layout_centerHorizontal="true" />
 
     <View
         android:id="@+id/divider_bottom"
@@ -77,13 +78,12 @@
         android:id="@+id/image_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/image"
         android:background="?android:attr/selectableItemBackground"
         android:paddingRight="50dp"
-        android:layout_toLeftOf="@+id/distance"
         android:src="@drawable/yelplogo"
-        />
-
+        android:layout_alignTop="@+id/divider_bottom"
+        android:layout_alignRight="@+id/image"
+        android:layout_alignEnd="@+id/image" />
 
 
 
@@ -97,6 +97,8 @@
         android:textColor="@android:color/primary_text_light"
         android:layout_toEndOf="@+id/title"
         android:layout_alignBottom="@+id/title"
-        android:layout_toRightOf="@+id/title" />
+        android:layout_toRightOf="@+id/title"
+        android:gravity="center|center_horizontal"
+        android:layout_marginRight="3dp" />
 
 </RelativeLayout>

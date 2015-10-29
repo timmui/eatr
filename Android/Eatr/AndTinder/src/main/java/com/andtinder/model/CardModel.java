@@ -20,10 +20,14 @@ package com.andtinder.model;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+
+import java.net.URI;
 
 public class CardModel {
 
 	private String   title;
+	private Uri geoLocation;
 	private String distance;
 	private Drawable cardImageDrawable;
 	private Drawable cardLikeImageDrawable;
@@ -44,14 +48,15 @@ public class CardModel {
     }
 
 	public CardModel() {
-		this(null, null, (Drawable)null,(Drawable)null);
+		this(null, null, null,(Drawable)null,(Drawable)null);
 	}
 
-	public CardModel(String title, String distance, Drawable rating, Drawable cardImage) {
+	public CardModel(String title, String distance, Uri geoLocation,Drawable rating, Drawable cardImage) {
 		this.title = title;
 		this.distance = distance;
 		this.cardImageDrawable = cardImage;
 		this.rating = rating;
+        this.geoLocation = geoLocation;
 	}
 
 	public CardModel(String title, String distance, Bitmap rating, Bitmap cardImage) {
